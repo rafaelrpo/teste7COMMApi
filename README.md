@@ -1,167 +1,166 @@
-🚀 API Tests – BDD com Cucumber, RestAssured e WireMock
+📌 Login API – Testes BDD com Cucumber, RestAssured e WireMock
 
-Projeto de automação de testes de API utilizando BDD (Behavior Driven Development) com Cucumber, RestAssured e WireMock para simulação (mock) de serviços REST, sem dependência de backend real.
+Este projeto demonstra a automação de testes de uma API de login utilizando BDD (Behavior Driven Development) com Cucumber (Gherkin), RestAssured para testes de API e WireMock para mockar o backend.
 
-O foco é validar o endpoint de login, cobrindo múltiplos cenários de autenticação e controle de acesso, com geração de relatórios via Allure Report.
-
----
-
-🧪 Tecnologias Utilizadas
-
-Java 17+
-
-Maven
-
-RestAssured
-
-Cucumber (BDD)
-
-JUnit 5
-
-WireMock (Mock de API)
-
-Allure Report
-
----- 
-📂 Estrutura do Projeto
-
-api-bdd-wiremock
-│
-├── pom.xml
-├── README.md
-└── src
-└── test
-├── java
-│   ├── runners
-│   │   └── CucumberTestRunner.java
-│   ├── steps
-│   │   └── LoginSteps.java
-│   ├── hooks
-│   │   └── Hooks.java
-│   ├── utils
-│   │   └── WireMockConfig.java
-│   └── support
-│       └── TestContext.java
-│
-└── resources
-├── features
-│   └── login.feature
-└── wiremock
-└── mappings
-├── login-200.json
-├── login-401.json
-├── login-403.json
-└── login-423.json
+O objetivo é validar os principais cenários de autenticação de forma isolada, legível e alinhada ao negócio.
 
 ---
 
-🎯 Cenários Cobertos
+🧪 Cenários testados
 
-Endpoint mockado:
+O endpoint testado é:
 
 POST /api/login
 
-Casos de teste:
+Casos cobertos:
+Cenário	Status HTTP	Descrição
+Login com sucesso	200	Retorna token e perfil do usuário
+Credenciais inválidas	401	Usuário ou senha inválidos
+Acesso negado	403	Usuário sem permissão
+Usuário bloqueado	423	Usuário bloqueado no sistema
 
-✅ 200 – Login com sucesso
-
-Retorna token JWT
-
-Retorna perfil do usuário
-
-❌ 401 – Credenciais inválidas
-
-🚫 403 – Acesso negado
-
-🔒 423 – Usuário bloqueado
-Todos os cenários são descritos em Gherkin e executados via Cucumber.
 ---
-🧩 Exemplo de Feature (BDD)
-Feature: Login de usuário
 
-Scenario: Login realizado com sucesso
-Given que o serviço de login está disponível
-When realizo login com usuário válido
-Then o status code deve ser 200
-And o token JWT deve ser retornado
+🧱 Tecnologias utilizadas
 
-Scenario: Credenciais inválidas
-When realizo login com credenciais inválidas
-Then o status code deve ser 401
+☕ Java
+
+🥒 Cucumber (BDD / Gherkin)
+
+🧪 RestAssured
+
+🎭 WireMock (Mock da API)
+
+🧰 JUnit
+
+📦 Maven
+
 ---
-🔧 Mock da API (WireMock)
 
-Como não há backend real, os endpoints são simulados com WireMock, permitindo:
+📁 Estrutura do projeto
+login-api-bdd-cucumber
+├── pom.xml
+└── src
+└── test
+├── java
+│   ├── runner
+│   │   └── CucumberTestRunner.java
+│   └── steps
+│       └── LoginSteps.java
+└── resources
+└── features
+└── login.feature
+
+---
+
+📌 Descrição dos principais arquivos
+
+login.feature
+
+Arquivo Gherkin com os cenários de negócio (Given / When / Then)
+
+LoginSteps.java
+
+Implementação dos steps do Cucumber
+
+Configuração do WireMock
+
+Execução das chamadas via RestAssured
+
+CucumberTestRunner.java
+
+Classe responsável por executar os testes Cucumber
+
+Geração do relatório HTML
+
+pom.xml
+
+Gerenciamento de dependências e build do projeto
+
+---
+
+▶️ Como executar o projeto
+Pré-requisitos
+
+Java 11 ou superior
+
+Maven instalado
+
+Passo a passo
+
+Extraia o arquivo ZIP
+
+Acesse a pasta do projeto
+
+Execute o comando: 'mvn test'
+
+---
+
+📊 Relatório de testes
+
+Após a execução, será gerado automaticamente um relatório HTML do Cucumber:
+
+target/cucumber-report.html
+
+
+Abra esse arquivo no navegador para visualizar:
+
+Cenários executados
+
+Status (passou/falhou)
+
+Detalhes de cada step
+
+---
+
+🎭 Mock da API (WireMock)
+
+Este projeto não depende de um backend real.
+
+O WireMock:
+
+Simula o endpoint /api/login
+
+Retorna respostas diferentes conforme o cenário
+
+Garante testes rápidos, confiáveis e isolados
+
+---
+
+✅ Boas práticas aplicadas
+
+BDD com linguagem de negócio
 
 Testes independentes
 
-Execução local
-
-Simulação de múltiplos status HTTP
-
-Testes de contrato
-
-Os mocks ficam em:
-
-src/test/resources/wiremock/mappings
-
----
-
-📊 Relatórios – Allure
-
-Após a execução dos testes, é possível gerar relatórios detalhados com evidências.
-
-Executar os testes:
-mvn clean test
-
-Gerar e abrir o relatório Allure:
-mvn allure:serve
-
-
-O relatório inclui:
-
-Status dos cenários
-
-Steps executados
-
-Requests e responses
-
----
-
-▶️ Como Executar o Projeto
-Pré-requisitos:
-
-Java 17+
-
-Maven 3.8+
-
----
-📌 Boas Práticas Aplicadas
-
-BDD para alinhamento técnico e de negócio
-
-Separação clara de responsabilidades
-
-Testes independentes de backend
-
-Mock de API com WireMock
+Mock de API
 
 Código limpo e organizado
 
-Projeto pronto para CI/CD
+Fácil manutenção e escalabilidade
 
 ---
-💼 Contexto Profissional
 
-Este projeto foi desenvolvido com foco em:
+🚀 Possíveis evoluções
 
-Portfólio técnico
+Scenario Outline + Examples
 
-Entrevistas de QA / Automação
+Integração com Allure Report
 
-Demonstração de domínio em testes de API
+Execução em pipeline CI/CD
+
+Dockerização
+
+Autenticação real com JWT
+
+Separação de Hooks globais
+
+---
 
 👨‍💻 Autor
 
 Rafael Rodrigo
+
+👨‍💻 [Github](https://github.com/rafaelrpo)
+
 QA Automation Engineer
