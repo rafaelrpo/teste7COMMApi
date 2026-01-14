@@ -149,8 +149,6 @@ Integração com Allure Report
 
 Execução em pipeline CI/CD
 
-Dockerização
-
 Autenticação real com JWT
 
 Separação de Hooks globais
