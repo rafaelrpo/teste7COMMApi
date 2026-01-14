@@ -1,12 +1,22 @@
-Feature: Login API
+Feature: Login na API
 
-  Scenario Outline: Login com diferentes respostas
-    Given que informo usuario "<usuario>" e senha "<senha>"
-    When realizo o login
-    Then o status code deve ser <status>
+  Scenario: Login com sucesso
+    Given que o usuário é válido
+    When realiza login com credenciais corretas
+    Then o sistema retorna status 200
+    And retorna um token e perfil do usuário
 
-    Examples:
-      | usuario    | senha    | status |
-      | valido     | valido   | 200    |
-      | invalido   | invalido | 401    |
-      | bloqueado  | valido   | 423    |
+  Scenario: Credenciais inválidas
+    Given que as credenciais são inválidas
+    When realiza login
+    Then o sistema retorna status 401
+
+  Scenario: Acesso negado
+    Given que o usuário não tem permissão
+    When realiza login
+    Then o sistema retorna status 403
+
+  Scenario: Usuário bloqueado
+    Given que o usuário está bloqueado
+    When realiza login
+    Then o sistema retorna status 423
