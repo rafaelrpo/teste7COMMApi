@@ -1,39 +1,26 @@
-
 package steps;
 
-import io.cucumber.java.en.*;
-import io.restassured.http.ContentType;
+import io.cucumber.java.pt.*;
 import io.restassured.response.Response;
+import utils.BaseTest;
+import utils.ScenarioContext;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.notNullValue;
 
-public class LoginSteps {
+public class LoginSteps extends BaseTest {
 
-    private String body;
-    private Response response;
+    @Dado("que informo usuario {string} e senha {string}")
+    public void informoCredenciais(String usuario, String senha) {
+        Response response = given()
+                .contentType("application/json")
+                .body("{\"username\":\"" + usuario + "\",\"password\":\"" + senha + "\"}")
+                .post("/api/login");
 
-    @Given("que possuo usuário {string} e senha {string}")
-    public void credenciais(String usuario, String senha) {
-        body = String.format("{\"username\":\"%s\",\"password\":\"%s\"}", usuario, senha);
+        ScenarioContext.setResponse(response);
     }
 
-    @When("realizo o login")
+    @Quando("realizo o login")
     public void realizoLogin() {
-        response = given()
-            .contentType(ContentType.JSON)
-            .body(body)
-        .when()
-            .post("/api/login");
-    }
-
-    @Then("o status code deve ser {int}")
-    public void statusCode(int code) {
-        response.then().statusCode(code);
-    }
-
-    @Then("deve retornar um token JWT")
-    public void retornaToken() {
-        response.then().body("token", notNullValue());
+        // ação já executada no Given
     }
 }
